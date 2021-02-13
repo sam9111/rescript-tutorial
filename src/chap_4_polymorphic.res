@@ -20,7 +20,7 @@ type pair<'a> = ('a, 'a)
   values belong to type `'a` and the middle value must belong to the
   type `'b`.
 
-  The type `triple<int, float>` is one of the many possible concrete 
+  The type `triple<int, float>` is one of the many possible concrete
   manifestation of this type.
 
   Both `pair<'a>` and `triple<'a, 'b>` are generic or polymorphic types.
@@ -35,11 +35,10 @@ type pair<'a> = ('a, 'a)
 /*
   Uncomment the block below.
  */
-/*
+
 let center: pair<int> = (960, 540)
 let leroy: pair<string> = ("Xavier", "Leroy")
 let coords: pair<float> = (101.5, 42.3)
- */
 
 /*
   Next let us look at functions which operates on polymorphic or generic
@@ -50,18 +49,18 @@ let coords: pair<float> = (101.5, 42.3)
 /*
   Uncomment the block below.
  */
-/*
+
 let firstInPair = ((first, _): pair<'a>) => first
 let secondInPair = ((_, second): pair<'a>) => second
- */
+
 
 /*
-  The same function impelmentation can be reused for `pair<int>`, 
+  The same function impelmentation can be reused for `pair<int>`,
   `pair<string>` & `pair<float>`.
 
   This is possible because the implemenation of `firstInPair` &
   `secondInPair` does not know anything about those concrete types like
-  `int`, `string` or `float`. So you may confidently use it with any type 
+  `int`, `string` or `float`. So you may confidently use it with any type
   and it will work.
  */
 
@@ -84,12 +83,12 @@ secondInPair(coords) // 42.3
   This may not be something you explicitly consider in dynamic languages.
   Almost always you need the guarantee that values in the array have the
   same data structure or are the same type. Mixing and matching values
-  of different types in an array are a source of bugs. 
-  
-  For example you may be expecting float values in an array within a 
+  of different types in an array are a source of bugs.
+
+  For example you may be expecting float values in an array within a
   function. Every once in a while this results in a runtime error because
-  you also get string values as input. 
-  
+  you also get string values as input.
+
   There is no explicit notion of types in dynamic langauges. But the code
   which reads those values have an implict notion of the type of the value
   or rather its data structure.
@@ -103,7 +102,7 @@ secondInPair(coords) // 42.3
 /*
   Uncomment the block below.
  */
-/*
+
 let languagesAndAuthors = [
   ("Java", "James Gosling"),
   ("C", "Dennis Ritchie"),
@@ -115,7 +114,7 @@ let languagesAndAuthors = [
   ("Lisp", "John McCarthy"),
   ("Pascal", "Niklaus Wirth"),
 ]
-*/
+
 
 /*
   Above you have an array of`(string, string)` tuples.
@@ -124,7 +123,7 @@ let languagesAndAuthors = [
 /*
   Uncomment the line below.
  */
-// let arrayLength = Js.Array.length(languagesAndAuthors)
+ let arrayLength = Js.Array.length(languagesAndAuthors)
 
 /*
   ReScript array compiles to a JavaScript array. So the JavaScript array
@@ -142,17 +141,17 @@ let languagesAndAuthors = [
     ```
     let length: array<'a> => int
     ```
-  
+
   It returns the number of elements in the array.
  */
 
 /*
   Uncomment the block below.
  */
-/*
+
 let arrayFirstItem = languagesAndAuthors[0]
 let arrayLastItem = languagesAndAuthors[arrayLength - 1]
-*/
+
 
 /*
   You can access the elements in an array by index.
@@ -169,16 +168,16 @@ let arrayLastItem = languagesAndAuthors[arrayLength - 1]
 /*
   Uncomment the block below.
  */
-/*
+
 let tupleToString = ((first, second)) => `${first}: ${second}`
 
 // Using JS API
-Js.Array.map(tupleToString, languagesAndAuthors)
-*/
+let _=Js.Array.map(tupleToString, languagesAndAuthors)
+
 /*
   __DO NOT UNCOMMENT. THIS IS NOT CODE.__
-  Result: 
-    
+  Result:
+
     [
       "Java: James Gosling",
       "C: Dennis Ritchie",
@@ -218,7 +217,7 @@ Js.Array.map(tupleToString, languagesAndAuthors)
     ```
     let tupleToString: ((string , string)) => string
     ```
-  
+
   The output type is `string`. So `'b` is `string`. [1st argument]
 
   The output type for the map function is `array<'b>`. By substitution
@@ -231,14 +230,14 @@ Js.Array.map(tupleToString, languagesAndAuthors)
 /*
   Uncomment the block below.
  */
-/*
+
 // Using Belt API (The ReScript standard library)
-languagesAndAuthors->Belt.Array.map(tupleToString)
-*/
+let _=languagesAndAuthors->Belt.Array.map(tupleToString)
+
 /*
   __DO NOT UNCOMMENT. THIS IS NOT CODE.__
-  Result: 
-    
+  Result:
+
     [
       "Java: James Gosling",
       "C: Dennis Ritchie",
@@ -263,7 +262,7 @@ languagesAndAuthors->Belt.Array.map(tupleToString)
   The advantage of using Belt over JavaScript API is that it implemented
   with ReScript ergonomics in mind. But the most important advantage is
   that a Belt function will never throw an exception. You will soon
-  encounter in this lesson the specific type & programming techniques 
+  encounter in this lesson the specific type & programming techniques
   which makes this possible.
 
   Unlike the JavaScript API, the Belt requires a runtime. Meaning there
@@ -283,10 +282,10 @@ type pl = {language: string, author: string}
 
 /*
   -----------------------------------------------------------------------------
-  Exercise 1 
+  Exercise 1
   -----------------------------------------------------------------------------
   Write a function to parse a tuple value like:
-  
+
      `("JavaScript", "Brendan Eich")`
 
   into a `pl` record type value like:
@@ -302,13 +301,18 @@ type pl = {language: string, author: string}
 /*
   Uncomment the block below. It contains test code for exercise 1.
  */
-/*
+
+let parsePL = ((language, author)) =>
+{
+  {language: language, author: author}
+}
+
 SimpleTest.assertEqual(
   ~expected={language: "JavaScript", author: "Brendan Eich"},
   ~actual=parsePL(("JavaScript", "Brendan Eich")),
   ~msg="[exercise 1] parse `pl` record type value from string tuple",
 )
-*/
+
 
 /*
   -----------------------------------------------------------------------------
@@ -326,15 +330,16 @@ SimpleTest.assertEqual(
 /*
   Uncomment the block below. It contains test code for exercise 2.
  */
-/*
-let lowercaseLanguages = []
+
+
+let lowercaseLanguages = languagesAndAuthors->Belt.Array.map(((first, _)) => Js.String.toLocaleLowerCase(first))
 
 SimpleTest.assertEqual(
   ~expected=["java", "c", "python", "php", "perl", "javascript", "ruby", "lisp", "pascal"],
   ~actual=lowercaseLanguages,
   ~msg="[exercise 2] languages in lowercase",
 )
-*/
+
 
 /*
   -----------------------------------------------------------------------------
@@ -350,16 +355,16 @@ SimpleTest.assertEqual(
 /*
   Uncomment the block below. It contains test code for exercise 3.
  */
-/*
+
 let names = [("Jhumpa", "Lahiri"), ("J. K", "Rowling"), ("Devdutt", "Pattanaik")]
-let fullnames = []
+let fullnames = names->Belt.Array.map(((first, second)) => `${first} ${second}`)
 
 SimpleTest.assertEqual(
   ~expected=["Jhumpa Lahiri", "J. K Rowling", "Devdutt Pattanaik"],
   ~actual=fullnames,
   ~msg="[exercise 3] full names",
 )
-*/
+
 
 /*
   -----------------------------------------------------------------------------
@@ -375,8 +380,8 @@ SimpleTest.assertEqual(
 /*
   Uncomment the block below. It contains test code for exercise 4.
  */
-/*
-let authors = []
+
+let authors = languagesAndAuthors->Belt.Array.map(((_,authors)) => authors)
 
 SimpleTest.assertEqual(
   ~expected=[
@@ -393,7 +398,7 @@ SimpleTest.assertEqual(
   ~actual=authors,
   ~msg="[exercise 4] programming language authors",
 )
-*/
+
 
 /*
   The `filter` function returns a new array that keeps all the array
@@ -402,7 +407,7 @@ SimpleTest.assertEqual(
     ```
     let filter: ('a => bool, array<'a>) => array<'a>
     ```
-  
+
   The condition to satisfy for keeping an array item is specified by
   the first argument which is a function with the type: `'a => bool`.
 
@@ -424,16 +429,16 @@ SimpleTest.assertEqual(
 /*
   Uncomment the block below.
  */
-/*
+
 let filtered =
   Js.Array.filter(
     ((language, _)) => Js.String.startsWith("P", language),
     languagesAndAuthors,
   )
-*/
+
 /*
   __DO NOT UNCOMMENT. THIS IS NOT CODE.__
-  Result: 
+  Result:
 
     [
       ("Python", "Guido van Rossum"),
@@ -441,7 +446,7 @@ let filtered =
       ("Perl", "Larry Wall"),
       ("Pascal", "Niklaus Wirth"),
     ]
-  
+
   __DO NOT UNCOMMENT. THIS IS NOT CODE.__
 */
 
@@ -462,16 +467,17 @@ let filtered =
   -----------------------------------------------------------------------------
  */
 
-/*
+let languages=languagesAndAuthors->Belt.Array.map(((language,_))=>language)
 let compiledLanguages = ["Java", "C"]
-let dynamicLanguages = []
+let dynamicLanguages = Js.Array.filter(
+  language =>!Js.Array.includes(language,compiledLanguages),languages)
 
 SimpleTest.assertEqual(
   ~expected=["Python", "PHP", "Perl", "JavaScript", "Ruby", "Lisp", "Pascal"],
   ~actual=dynamicLanguages,
   ~msg="[exercise 5] dynamic languages",
 )
-*/
+
 
 /*
   The `reduce` function is used when you need to summarize an array of
@@ -484,7 +490,7 @@ SimpleTest.assertEqual(
 /*
   Uncomment the block below.
  */
-/*
+
 type metric = {state: string, count: int}
 
 let mh = {state: "Maharasthra", count: 2342}
@@ -497,7 +503,7 @@ let tn = {state: "Tamil Nadu", count: 770}
 let totalCount = Js.Array.reduce((acc, {count}) => {
   acc + count
 }, 0, [mh, ka, dl, wb, jh, tn]) // 4974
-*/
+
 
 /*
   The type of `Js.Array.reduce` is:
@@ -523,7 +529,7 @@ let totalCount = Js.Array.reduce((acc, {count}) => {
       acc + count
     }
     ```
-  
+
   All it does is take destructure the `count` from the `metric` record
   value, and add it to the accumulator.
 
@@ -533,7 +539,7 @@ let totalCount = Js.Array.reduce((acc, {count}) => {
 
   Let us trace the iterative execution:
 
-    index | acc(input)  | {count} | (acc + count) returned 
+    index | acc(input)  | {count} | (acc + count) returned
     ------------------------------------------------------
       [0] |         0   |    2342 |       0 + 2342 = 2342
       [1] |      2342   |     745 |    2342 +  745 = 3087
@@ -576,7 +582,7 @@ let totalCount = Js.Array.reduce((acc, {count}) => {
     </tr>
 
   Notes:-
-  
+
   1. Use 2 spaces for indentation.
   2. Save the result to the `tableRowsHTML` binding.
 
@@ -593,11 +599,21 @@ let totalCount = Js.Array.reduce((acc, {count}) => {
 /*
   Uncomment the block below.
  */
-/*
-let tableRows = [("Java", "James Gosling"), ("C", "Dennis Ritchie")]
-let tableRowsHTML = ""
 
-let expectedTableHTML = `<tr>
+let tableRows = [("Java", "James Gosling"), ("C", "Dennis Ritchie")]
+let tableRowsHTML = Js.Array.reduce(
+(html,((language,author)))=>
+html++
+`
+<tr>
+  <td>${language}</td>
+  <td>${author}</td>
+</tr>`
+  ,"",tableRows)
+
+let expectedTableHTML =
+`
+<tr>
   <td>Java</td>
   <td>James Gosling</td>
 </tr>
@@ -610,7 +626,7 @@ SimpleTest.assertEqual(
   ~actual=tableRowsHTML,
   ~msg="[exercise 6] Use `Js.Array.reduce` to generate table rows HTML",
 )
- */
+
 
 /*
   -----------------------------------------------------------------------------
@@ -620,8 +636,8 @@ SimpleTest.assertEqual(
   Save the result in the binding `mergedBooks`.
 
   You may need `Belt.List.zip` for this exercise. The `zip` function allows
-  you to merge two arrays into an array of tuple values. 
-  
+  you to merge two arrays into an array of tuple values.
+
   See the example below.
 
     let xs = [1, 2, 3]
@@ -635,11 +651,17 @@ type book = {name: string, author: string}
 /*
   Uncomment the block below.
  */
-/*
+
 let books = ["Design as Art", "Anathem", "Shogun"]
 let authors = ["Bruno Munari", "Neal Stephenson", "James Clavell"]
 
-let mergedBooks = []
+let mergedBooks =Belt.Array.zip(books, authors)->Belt.Array.map(
+  ((book, author))=>
+  {
+    name: book,
+    author: author
+  }
+)
 
 let expectedBooks = SimpleTest.assertEqual(
   ~expected=[
@@ -650,18 +672,18 @@ let expectedBooks = SimpleTest.assertEqual(
   ~actual=mergedBooks,
   ~msg="[exercise 7] merge two array values into an array of record values",
 )
-*/
+
 
 /*
   The list<'a> is single linked-list. It is an immutable data structure.
 
-  Hover over `statewiseMetrics` to see its type. It will be `list<metric>`.  
+  Hover over `statewiseMetrics` to see its type. It will be `list<metric>`.
  */
 
 /*
   Uncomment the line below.
  */
-// let statewiseMetrics = list{mh, ka, dl, wb, jh, tn}
+ let statewiseMetrics = list{mh, ka, dl, wb, jh, tn}
 
 /*
   You can prepend a value to to create a new list using the spread
@@ -671,10 +693,9 @@ let expectedBooks = SimpleTest.assertEqual(
 /*
   Uncomment the block below.
  */
-/*
+
 let gj = {state: "Gujarat", count: 500}
 let statewiseMetrics2 = list{gj, ...statewiseMetrics}
-*/
 
 /*
  You can reverse a list like this.
@@ -683,7 +704,7 @@ let statewiseMetrics2 = list{gj, ...statewiseMetrics}
 /*
   Uncomment the line below.
  */
-// let reversed = statewiseMetrics2->Belt.List.reverse
+ let reversed = statewiseMetrics2->Belt.List.reverse
 
 /*
   -----------------------------------------------------------------------------
@@ -694,8 +715,8 @@ let statewiseMetrics2 = list{gj, ...statewiseMetrics}
     myCustomMap: (list<'a>, 'a => 'b) => list<'b>
     myCustomFilter: (list<'a>, 'a => bool) => list<'a>
 
-  Hint: You can implement `map` & `filter` using `Belt.List.reduce`. 
-        
+  Hint: You can implement `map` & `filter` using `Belt.List.reduce`.
+
   The function `Belt.List.reduce` has the following type signature:
 
     ```
@@ -704,6 +725,26 @@ let statewiseMetrics2 = list{gj, ...statewiseMetrics}
   -----------------------------------------------------------------------------
  */
 
+let myCustomMap=(l,f)=>
+{
+  l->Belt.List.reduce(
+    list{},
+    (acc,l_value) => list{f(l_value),...acc}
+  )->Belt.List.reverse
+}
+
+let myCustomFilter=(l,c)=>
+{
+  l->Belt.List.reduce(
+    list{},
+    (acc,l_value) =>
+    if (c(l_value)){
+      list{l_value,...acc}
+    }else{
+      acc
+    }
+  )->Belt.List.reverse
+}
 /*
   -----------------------------------------------------------------------------
   Exercise 9
@@ -716,7 +757,7 @@ let statewiseMetrics2 = list{gj, ...statewiseMetrics}
     ->myCustomMap(({state, count}) => `${state}: ${count->Belt.Int.toString}`)
     ->Belt.List.forEach(Js.log)
     ```
-  
+
   If your implementation is correct you should see the following being
   logged to console,
 
@@ -730,12 +771,12 @@ let statewiseMetrics2 = list{gj, ...statewiseMetrics}
 /*
   Uncomment the block below.
  */
-/*
+
 statewiseMetrics
 ->myCustomFilter(x => x.count > 500)
 ->myCustomMap(({state, count}) => `${state}: ${count->Belt.Int.toString}`)
 ->Belt.List.forEach(Js.log)
-*/
+
 
 /*
   You can also pattern-match on lists.
@@ -756,7 +797,7 @@ statewiseMetrics
 /*
   Uncomment the block below.
  */
-/*
+
 let describeList = xs =>
   switch xs {
   | list{} => "This list is empty"
@@ -768,26 +809,26 @@ let describeList = xs =>
   }
 
 // This list is empty
-describeList(list{})
+Js.log(describeList(list{}))
 
 // The first item in this list is: alone and there are other 0 items.
-describeList(list{"alone"})
+Js.log(describeList(list{"alone"}))
 
 // The first item in this list is: hello and there are other 3 items.
-describeList(list{"hello", "world", "good", "bye"})
-*/
+Js.log(describeList(list{"hello", "world", "good", "bye"}))
+
 
 /*
   -----------------------------------------------------------------------------
   Null References: The Billion Dollar Mistake - Tony Hoare
   -----------------------------------------------------------------------------
   The null reference was invented in 1965 in the Algol W language designed by
-  Tony Hoare & Niklaus Wirth. 
-  
+  Tony Hoare & Niklaus Wirth.
+
   Historically this turned out to be a bad idea. The programming languages
   which came later adopted the same design. It led to numerous errors in
   programming, and easily exploitable vulnerabilities in software.
-  
+
   After 40 years since the invention Hoare estimates the problems caused by
   null references would exceed a billion dollars.
 
@@ -863,7 +904,7 @@ describeList(list{"hello", "world", "good", "bye"})
 /*
   Uncomment the block below.
  */
-/*
+
 type key =
   | Up
   | Down
@@ -883,9 +924,9 @@ let userInputToKey = keypress =>
   | _ => None
   }
 
-userInputToKey("1234") // None
-userInputToKey("escape") // Some(Escape)
-*/
+let _=userInputToKey("1234") // None
+let _=userInputToKey("escape")// Some(Escape)
+
 
 /*
   You can pattern-match an option value like any other variant.
@@ -897,7 +938,7 @@ userInputToKey("escape") // Some(Escape)
 /*
   Uncomment the block below.
  */
-/*
+
 let printMessage = message =>
   switch message {
   | None => "This message is empty"
@@ -922,9 +963,10 @@ You will be alone with the gods, and the nights will flame with fire.
 DO IT. DO IT. DO IT. All the way
 You will ride life straight to perfect laughter. It’s the only good fight there is`
 
-printMessage(Some(bukowski))
-printMessage(None)
-*/
+Js.log(printMessage(Some(bukowski)))
+
+Js.log(printMessage(None))
+
 
 /*
   Earlier we used `map` for arrays & list values. An input function was iteratively
@@ -948,7 +990,7 @@ printMessage(None)
 /*
   Uncomment the block below.
  */
-/*
+
 let repeatTwice = x =>
   switch x {
   | Some(text) => Some(Js.String.repeat(2, text))
@@ -958,8 +1000,8 @@ let repeatTwice = x =>
 let messages = [Some("hello"), Some("world"), None, None, Some("goodbye")]
 
 // [Some("hellohello"), Some("worldworld"), None, None, Some("goodbyegoodbye")]
-messages->Belt.Array.map(repeatTwice)
-*/
+let _=messages->Belt.Array.map(repeatTwice)
+
 
 /*
   The `repeatTwiceZeroKnowledge` function does not pattern match an option
@@ -988,9 +1030,8 @@ messages->Belt.Array.map(repeatTwice)
 /*
   Uncomment the block below.
  */
-/*
+
 let repeatTwiceZeroKnowledge = text => Js.String.repeat(2, text)
 
 // [Some("hellohello"), Some("worldworld"), None, None, Some("goodbyegoodbye")]
-messages->Belt.Array.map(x => x->Belt.Option.map(repeatTwiceZeroKnowledge))
-*/
+let some=messages->Belt.Array.map(x => x->Belt.Option.map(repeatTwiceZeroKnowledge))

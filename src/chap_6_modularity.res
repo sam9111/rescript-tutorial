@@ -1,5 +1,5 @@
 /*
-  Every individual `.res` file compiles into a module. 
+  Every individual `.res` file compiles into a module.
 
   A file named `hello.res` compiles to a module with the name `Hello`.
 
@@ -31,7 +31,7 @@
 /*
   Uncomment the line below.
  */
-/*
+
 module GithubProject__WithoutInterface = {
   type t = {
     name: string,
@@ -42,7 +42,7 @@ module GithubProject__WithoutInterface = {
 
   let linkTo = t => `<a href="${t.url}">${t.name}</a>`
 }
-*/
+
 
 /*
   To refer to this nested module type from another module you will have
@@ -63,22 +63,22 @@ module GithubProject__WithoutInterface = {
 /*
   Uncomment the line below.
  */
-// module Github_WI = GithubProject__WithoutInterface
+ module Github_WI = GithubProject__WithoutInterface
 
 /*
   The module name is long and tedious to type often. So we created an alias
-  above. This is shorter and easier to use. When you write: `Github_WI.t`, 
+  above. This is shorter and easier to use. When you write: `Github_WI.t`,
   it still refers to this: `GithubProject_WithoutInterface.t`.
  */
 
 /*
   Uncomment the line below.
  */
-// let atom: Github_WI.t = {name: "Atom", url: "https://atom.io", repositories: 255, people: 56}
+ let atom = {Github_WI.name: "Atom", url: "https://atom.io", repositories: 255, people: 56}
 
 /*
   -----------------------------------------------------------------------------
-  Exercise 1 
+  Exercise 1
   -----------------------------------------------------------------------------
   The record type defined inside the module is not visible in this lexical
   scope. Therefore manual type annotation is necessary for the `atom` binding.
@@ -93,8 +93,8 @@ module GithubProject__WithoutInterface = {
 /*
   Uncomment the line below.
  */
-// atom->Github_WI.linkTo // <a href="https://atom.io">Atom</a>
-
+let atom_link=  atom->Github_WI.linkTo // <a href="https://atom.io">Atom</a>
+Js.log(atom_link)
 /*
   Prefix the module name to bring the function you want to call into
   the current scope. There are no additional rules to learn here. Calling or
@@ -104,13 +104,13 @@ module GithubProject__WithoutInterface = {
 /*
   Uncomment the line below.
  */
-// let bookFormat: Chap_3_adt.bookFormat = Paperback
+let bookFormat: Chap_3_adt.bookFormat = Paperback
 
 /*
   Any binding or type defined in the other modules are also available here.
 
-  Above binding uses the variant type defined the `Chap_3_adt.res` file. 
-  
+  Above binding uses the variant type defined the `Chap_3_adt.res` file.
+
   Here manual annotation is necessary. The `bookFormat` variant is not visible
   in the scope of this module. The type annotation informs the compiler.
  */
@@ -118,7 +118,7 @@ module GithubProject__WithoutInterface = {
 /*
   Uncomment the block below.
  */
-/*
+
 module GithubProject: {
   type t = {
     name: string,
@@ -126,28 +126,28 @@ module GithubProject: {
     repositories: int,
     people: int,
   }
-
+  let url: t => string
   let linkTo: t => string
-} = {
+  }
+
+  = {
   type t = {
     name: string,
     url: string,
     repositories: int,
     people: int,
   }
-
-  // let url = t => t.url
-
+  let url= t =>t.url
   let linkTo = t => `<a href="${t.url}">${t.name}</a>`
 }
-*/
+
 
 /*
   There is some additional syntax here. The module definition is
   annotated with a type.
 
     ```
-    module TheModuleName : TheModuleType = 
+    module TheModuleName : TheModuleType =
       TheModuleImplementation
     ```
 
@@ -163,7 +163,7 @@ module GithubProject: {
       }
 
       let linkTo: t => string
-    }   
+    }
     ```
 
   This is known as the interface of the module. Only those types
@@ -211,13 +211,13 @@ module GithubProject: {
   module.
 
   Reverse your changes to fix the compilation error, and proceed.
-  -----------------------------------------------------------------------------  
+  -----------------------------------------------------------------------------
  */
 
 /*
   Uncomment the block below.
  */
-/*
+
 let node: GithubProject.t = {
   name: "Node.js",
   url: "https://nodejs.org",
@@ -225,8 +225,8 @@ let node: GithubProject.t = {
   people: 375,
 }
 
-node->GithubProject.linkTo
-*/
+let node_link=node->GithubProject.linkTo
+
 
 /*
   The `node` binding is a record type. So you update it in the same manner
@@ -236,10 +236,10 @@ node->GithubProject.linkTo
 /*
   Uncomment the block below.
  */
-/*
+
 let node2 = {...node, people: node.people + 10}
 let node3 = {...node2, repositories: node2.repositories + 1}
-*/
+
 
 /*
   -----------------------------------------------------------------------------
@@ -253,18 +253,18 @@ let node3 = {...node2, repositories: node2.repositories + 1}
 /*
   Uncomment the block below.
  */
-/*
+
 SimpleTest.assertEqual(
   ~expected="https://nodejs.org",
   ~actual=node3->GithubProject.url,
   ~msg="[exercise 3] github project url",
 )
-*/
+
 
 /*
   Uncomment the block below.
  */
-/*
+
 module GithubProject__OpaqueType: {
   type t
 
@@ -273,6 +273,14 @@ module GithubProject__OpaqueType: {
   let linkTo: t => string
 
   let updatePeople: (t, int) => t
+
+
+  let name: t => string
+  let url: t => string
+  let repositories: t => int
+  let people: t => int
+
+  let updateRepositories: (t, int)=> t
 } = {
   type t = {
     name: string,
@@ -291,10 +299,17 @@ module GithubProject__OpaqueType: {
   let linkTo = t => `<a href="${t.url}">${t.name}</a>`
 
   let updatePeople = (t, count) => {...t, people: t.people + count}
+
+  let name = t => t.name
+  let url = t => t.url
+  let repositories = t => t.repositories
+  let people = t => t.people
+
+  let updateRepositories = (t, count) => {...t, repositories: t.repositories + count}
 }
 
 module Github_OT = GithubProject__OpaqueType
-*/
+module Github3= GithubProject__OpaqueType
 
 /*
   This module `Github_OT` declares an opaque type `t` in its interface.
@@ -318,7 +333,7 @@ module Github_OT = GithubProject__OpaqueType
     ```
     type t
     ```
-  
+
   The implemenation is opaque. The type is opaque. From the point of view
   of the client there is no way to know that it is a record.
 
@@ -346,15 +361,15 @@ module Github_OT = GithubProject__OpaqueType
 /*
   Uncomment the block below.
  */
-/*
+
 let rails = Github_OT.make(
   ~name="Ruby on Rails",
   ~url="https://rubyonrails.org",
   ~repositories=99,
   ~people=66,
 )
-rails->Github_OT.linkTo
-*/
+let rails_link=rails->Github_OT.linkTo
+
 
 /*
   So if you don't know the implementation is a record, then how do you
@@ -394,12 +409,12 @@ rails->Github_OT.linkTo
 /*
   Uncomment the block below.
  */
-/*
-rails->Github3.name // returns: "Ruby on Rails"
-rails->Github3.url // returns: "https://rubyonrails.org"
-rails->Github3.repositories // returns: 99
-rails->Github3.people // returns: 66
 
-let rails2 = rails->Github3.updateRepositories(1)
-rails2->Github3.repositories // returns: 100
-*/
+
+Js.log(rails->Github3.name) // returns: "Ruby on Rails"
+Js.log(rails->Github3.url )// returns: "https://rubyonrails.org"
+Js.log(rails->Github3.repositories) // returns: 99
+Js.log(rails->Github3.people )// returns: 66
+
+let rails2=rails->Github3.updateRepositories(1)
+Js.log(rails2->Github3.repositories) // returns: 100

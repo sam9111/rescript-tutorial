@@ -1,37 +1,38 @@
 /*
   Uncomment the line below to get started
  */
-// let hello: string = "Hello, World!"
+
+let hello: string = "Hello, World!"
 
 /*
   This is known as a let-binding. It has the following form:
 
       let <binding-name>: <type> = <expression>
 
-  The ReScript compiler will "type check" if the value on the right-hand side 
-  matches the expected type. The code will fail to compile if there is a 
+  The ReScript compiler will "type check" if the value on the right-hand side
+  matches the expected type. The code will fail to compile if there is a
   mismatch.
 
   Other commonly used primitive types are:
-    - `int` (32-bit integers), 
+    - `int` (32-bit integers),
     - `float`,
     - `bool` (either `true` or `false`).
 
   -----------------------------------------------------------------------------
   Exercise 1 (easy)
   -----------------------------------------------------------------------------
-  Change the type of `hello` to one of the other primitive types. 
-  
-  This will result in a compilation error because of type mismatch. Inspect 
+  Change the type of `hello` to one of the other primitive types.
+
+  This will result in a compilation error because of type mismatch. Inspect
   the compiler error message.
-  
-  Once you have understood the error message fix it by changing the annotated 
+
+  Once you have understood the error message fix it by changing the annotated
   type of `hello` back to `string`.
   -----------------------------------------------------------------------------
 
   Did you try changing the annotated type to either `int` or `float` in the
   exercise above?
-  
+
   The compiler error message includes a contextual recommendation. It points
   you to a library function which can be used to convert a `string` to either
   `int` or `float` types.
@@ -50,7 +51,7 @@
 /*
   Uncomment the line below to get started
  */
-// let goodbye = "Goodbye!"
+ let goodbye = "Goodbye!"
 
 /*
   You do not have to manually annotate the type for a binding. The ReScript
@@ -59,15 +60,15 @@
 
   If you are using a recommended editor with the rescript plugin you'll be
   able to hove over the binding to see the automatically inferred type.
-  
+
   You'll see that the type of the binding `goodbye` is of `string`.
 
   -----------------------------------------------------------------------------
   Exercise 2 (easy)
   -----------------------------------------------------------------------------
   Change the type of `goodbye` to one of the other primitive types by adding
-  a manual type annotation. 
-  
+  a manual type annotation.
+
   a) Hover over the `binding`. Is the type displayed the same as the manually
   annotated one?
 
@@ -87,17 +88,17 @@
 
   The 2nd and 3rd lines are commentend out on purpose (See exercise 3).
  */
-/*
+
 let runningTotal = 1 * 1
-// let runningTotal = 2 * 2
+ let runningTotal = runningTotal+2 * 2
 // let runningTotal = 3 * 3
-*/
+
 
 /*
   -----------------------------------------------------------------------------
   Exercise 3 (easy)
   -----------------------------------------------------------------------------
-  Uncomment the two bindings with the same name `runningTotal`. You will see 
+  Uncomment the two bindings with the same name `runningTotal`. You will see
   the compiler warning you about an unused variable. Modify the expression on
   the right-hand side to add the previous value of `runningTotal` to it. Doing
   this uses the binding and the compiler will not warn about an unused
@@ -115,8 +116,8 @@ let runningTotal = 1 * 1
 
   When you add the previous `runningTotal` value to get a new *immutable*
   value for `runningTotal`, you are representing the intermediate steps
-  required to reach the final value of `runningTotal`. 
-  
+  required to reach the final value of `runningTotal`.
+
   The example above is trivial, but *immutable* by default prevents various
   latent bugs in your code. In other languages writing *immutable* code
   you incur a performance penalty. The ReScript compiler is able to perform
@@ -131,11 +132,11 @@ let runningTotal = 1 * 1
 /*
   Uncomment the block below.
  */
-/*
+
 let sumOfInts = 1 + 2 + 3 + 4
 let sumOfFloats = 1. +. 2.2 +. 3.14
 let joinedStrings = "Hello, " ++ "World" ++ "!"
-*/
+
 
 /*
   In the expressions above are adding together multiple integers, floats
@@ -143,27 +144,27 @@ let joinedStrings = "Hello, " ++ "World" ++ "!"
   final value will be when the expression is evaluated.
 
   You will notice that in ReScript you use a different operator, when the
-  type of the value changes. 
-  
+  type of the value changes.
+
   To add integer values you use the `+` operator.
   To add float values you use the `+.` operator.
   To add string values you use the `++` operator.
 
   In object-oriented languages you will have experience writing
   expressions like:
-  
-    `1 + 2` 
-    
-  and 
-  
+
+    `1 + 2`
+
+  and
+
     `"deep work" + " and " + "deliberate practice"`
-  
+
   expecting them to just work. Those languages have support for a kind
   of polymorphism known as *ad-hoc polymorphism*. The operator `+` is
   polymorphic function which can be applied to arguments of different
-  types. 
-  
-  Some of these languages may also allow you to overload the `+` 
+  types.
+
+  Some of these languages may also allow you to overload the `+`
   operator for your own custom types. You can use the same
   name with different types. They can act in totally different ways
   which is decided at compilation time, and it depends on the context -
@@ -171,7 +172,7 @@ let joinedStrings = "Hello, " ++ "World" ++ "!"
   function.
 
   Ad-hoc polymorphism is not a feature of the ReScript/OCaml type
-  system.  
+  system.
 
   The ReScript compiler can therefore recognize when the programmer
   makes a mistake in code. If you intended to add float type values
@@ -183,7 +184,7 @@ let joinedStrings = "Hello, " ++ "World" ++ "!"
   In the long run, these tiny details add up and have a compounding
   effect in writing programs which are safe - because once the code
   compiles the type checker guarantees that a class of errors simply
-  do not exist in your code.  
+  do not exist in your code.
 
   -----------------------------------------------------------------------------
   Exercise 4 (easy)
@@ -202,7 +203,7 @@ let joinedStrings = "Hello, " ++ "World" ++ "!"
 
   The ReScript compiler error messages will include hints on the `Belt`
   library functions like:
-  
+
   - Belt.Float.toInt,
   - Belt.Int.toFloat,
   - Belt.Float.toString,
@@ -217,7 +218,7 @@ let joinedStrings = "Hello, " ++ "World" ++ "!"
 /*
   Uncomment the block below.
  */
-/*
+
 let bookName = "Deep Work"
 let tagline = "Rules for Focused Success in a Distracted World"
 
@@ -229,7 +230,7 @@ let book2 = {
 }
 
 let book = bookName ++ ": " ++ tagline
-*/
+
 
 /*
   A new block scope can be created by putting code within curly braces `{}`.
@@ -239,9 +240,9 @@ let book = bookName ++ ": " ++ tagline
 
   What is the value of `book2`?
 
-  The last expression within the block scope is evaluated and implicitly 
-  returned. 
-  
+  The last expression within the block scope is evaluated and implicitly
+  returned.
+
   In ReScript there is no explicit `return` keyword. It is always
   the final expression.
 
@@ -255,7 +256,7 @@ let book = bookName ++ ": " ++ tagline
   c) When you remove the shadowed bindings inside the block scope what is the
   new value of `book2`?
 
-  Hint: You can verify your answer by looking up `book` & `book2` in the 
+  Hint: You can verify your answer by looking up `book` & `book2` in the
   JavaScript generated by the ReScript compiler. It has the same filename
   as this file with the extension `.bs.js`
   -----------------------------------------------------------------------------
@@ -266,22 +267,24 @@ let book = bookName ++ ": " ++ tagline
 
   The 2nd and 3rd lines are commentend out on purpose (See exercise 6).
  */
-/*
+
 let two = 2
-// let sum2 = sum + three
-// let sum = one + two
 let one = 1
+let sum = one + two
 let three = 3
-*/
+let sum2 = sum + three
+
+
+
 
 /*
   -----------------------------------------------------------------------------
   Exercise 6 (easy)
   -----------------------------------------------------------------------------
-  Uncomment the bindings `sum` & `sum2`. 
-  
-  You'll spot the following compiler error: 
-  
+  Uncomment the bindings `sum` & `sum2`.
+
+  You'll spot the following compiler error:
+
     **The value sum can't be found**
 
   Reorder the bindings to fix the compilation error.

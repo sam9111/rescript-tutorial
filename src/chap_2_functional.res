@@ -1,7 +1,7 @@
 /*
   Uncomment the block below.
  */
-/*
+
 let downvotes = 10
 let upvotes = 5
 let cssClassName = if upvotes < downvotes {
@@ -9,11 +9,11 @@ let cssClassName = if upvotes < downvotes {
 } else {
   "Comment"
 }
-*/
+
 
 /*
   The (if/else-if/.../else) syntax is a "control flow" construct familiar
-  to you. Here it is an **expression**. 
+  to you. Here it is an **expression**.
 
   Depending on the branch which evaluates true, a value is returned and
   it has an associated type inferred by the compiler, or you may have
@@ -27,7 +27,7 @@ let cssClassName = if upvotes < downvotes {
 
   You will see a compiler error if you try returning a `string` value
   in one branch and a `float` value in another branch. The type checker
-  will catch this and inform you that the types do not match. 
+  will catch this and inform you that the types do not match.
  */
 
 /*
@@ -38,7 +38,7 @@ let cssClassName = if upvotes < downvotes {
   total:
 
   1. When the total is 500 or above:
-  
+
     * Apply a flat discount of 10%.
 
     ```
@@ -51,7 +51,7 @@ let cssClassName = if upvotes < downvotes {
 
   2. When the total is 200 or above, but below 500:
 
-    * Apply a 5% discount on the amount greater than 200. 
+    * Apply a 5% discount on the amount greater than 200.
     * Add 25 to the above intermediate result to get the final discount.
 
     ```
@@ -67,15 +67,15 @@ let cssClassName = if upvotes < downvotes {
 /*
   Uncomment the block below for completing exercise 1.
  */
-/*
+
 let cartTotal = 220
-let discount = 0
+let discount = (220.-.200.)*.0.05+.25.
 SimpleTest.assertEqual(
-  ~expected=26,
+  ~expected=26.,
   ~actual=discount,
   ~msg="[exercise 1] Calculate discount for total amount of shopping cart",
 )
-*/
+
 
 /*
   The code above is not reusable. You need functions for creating reusable
@@ -83,7 +83,7 @@ SimpleTest.assertEqual(
   compute the discount for any value of total. Here is an example:
 
     ```
-    let fullname = (firstName, lastName) => 
+    let fullname = (firstName, lastName) =>
       firstName ++ " " ++ lastName
     ```
 
@@ -93,14 +93,14 @@ SimpleTest.assertEqual(
     ```
     //                                     output type
     //                                       ||||||
-    //                                       vvvvvv  
+    //                                       vvvvvv
     let fullname = (fn: string, ln: string): string =>
       fn ++ " " ++ ln
     ```
 
   Manual annotation is often unnecessary. The compiler is capable of
-  automatically inferring the correct type from your implementation. 
-  But when there comes a time when you need to manually annotate the 
+  automatically inferring the correct type from your implementation.
+  But when there comes a time when you need to manually annotate the
   type, you use the above syntax.
 
   If you need to lookup the documentation of a library function you
@@ -143,7 +143,7 @@ SimpleTest.assertEqual(
       firstNameInitials ++ ". " ++ lastNameInitials ++ ". "
     }
     ```
-  
+
   There is no explicit `return` keyword. The value from evaluating
   the final expression is returned to the caller.
 
@@ -168,10 +168,21 @@ SimpleTest.assertEqual(
 /*
   Uncomment the block below.
  */
-/*
+
 let calculateDiscount = (total: int): int => {
-  total // tests are failing
+  let discount=if total>= 500 {
+    (total*10)/100
+  }else {
+    if total >= 200 {
+    ((total-200)*5)/100+25
+    }else{
+      0
+    }
+  }
+  discount
 }
+
+
 SimpleTest.assertEqual(
   ~expected=0,
   ~actual=calculateDiscount(199),
@@ -192,7 +203,7 @@ SimpleTest.assertEqual(
   ~actual=calculateDiscount(500),
   ~msg="[exercise 2] Calculate discount for 500",
 )
-*/
+
 
 /*
   Functions support **currying** of input arguments. This is evident
@@ -209,7 +220,7 @@ SimpleTest.assertEqual(
       }
     }
     ```
-  
+
   The function `fullname` takes a single argument `firstName`. It then
   returns another function in its body. This inner function which
   does not have a name(anoynmous) takes a single argument `lastName`.
@@ -219,15 +230,15 @@ SimpleTest.assertEqual(
   The implication of function currying is that when you want to call
   a function, you do not necessarily need to have all the arguments
   available with you. So you can write this:
-  
+
     ```
     let hindleyPartial = fullName("J. Roger")
     ```
-  
+
   The `hindleyPartial` is a **partial application** of the function
   and, is waiting for one more argument. It is a function waiting
-  for one more argument of the `string` type. 
-  
+  for one more argument of the `string` type.
+
   Look at the type signatures of both functions:
 
     ```
@@ -235,7 +246,7 @@ SimpleTest.assertEqual(
 
     let hindleyPartial: string => string
     ```
-  
+
   You can complete the function application by calling `hindleyPartial`
   with one more `string` argument.
 
@@ -252,28 +263,28 @@ SimpleTest.assertEqual(
 
   Caveat
   ------
-  
-  ReScript compiles to JavaScript. JavaScript does **not** have currying. 
-  
+
+  ReScript compiles to JavaScript. JavaScript does **not** have currying.
+
   If you call a JavaScript function with 3 arguments, with only two arguments
-  it will still execute. It might result in a runtime error, or exhibit some 
-  undefined behavior. This makes it extremely difficult to figure out if a 
+  it will still execute. It might result in a runtime error, or exhibit some
+  undefined behavior. This makes it extremely difficult to figure out if a
   function application is complete in JavaScript.
 
   This is a problem when you are using a JavaScript API from ReScript through
   a binding. It not possible to verify through static analysis of code whether
-  a function application is complete. 
+  a function application is complete.
 
   The term *binding* is new here. You can think of a binding as the machinery
-  which makes it possible for a language like ReScript to reuse code already 
+  which makes it possible for a language like ReScript to reuse code already
   written in another language like JavaScript. You will learn more about this
-  later. 
+  later.
  */
 
 /*
   Uncomment the block below.
  */
-/*
+
 let wrapTagAroundText = (tag: string, text: string): string => {
   `<${tag}>${text}</${tag}>`
 }
@@ -292,7 +303,7 @@ let mainHeading = makeHeading1("This is the title of the document")
 let subHeading = makeHeading2("A simple tagline...")
 let para1 = makeParagraph("Text content....")
 let para2 = makeParagraph("This is the second paragraph...")
-*/
+
 
 /*
   Partial application is useful for fixing an argument and then binding
@@ -301,8 +312,8 @@ let para2 = makeParagraph("This is the second paragraph...")
   The `makeHeading1` is a partial application of `wrapTagAroundText`
   function. It fixes the `tagName` argument to the value "h1".
 
-  This is a simple example. 
-  
+  This is a simple example.
+
   You will commonly see this type of usage in the presence of computations
   which requires I/O. The arguments required for completing an application
   may be dependent on the successful completion of the I/O operation. This
@@ -321,7 +332,7 @@ let para2 = makeParagraph("This is the second paragraph...")
     ```
     string => string
     ```
-  
+
   The `text` argument can be omitted because of currying. When you supply
   the `text` argument to `makeHeading3`, it is in turn applied to
   `wrapTagARoundText("h3")` to complete the function application.
@@ -329,9 +340,9 @@ let para2 = makeParagraph("This is the second paragraph...")
   Even though this is valid syntax, try not to use this in practice. It
   obscures the partial application from the reader of the code. Unless
   they hover over the type signature it may not be evident to them that
-  `makeHeading3` is a function, and not a final value. 
-  
-  In larger codebases this cognitive load will add up fast. So when in 
+  `makeHeading3` is a function, and not a final value.
+
+  In larger codebases this cognitive load will add up fast. So when in
   doubt err on the side of readability of code. Use the first form where
   the input argument is explicitly stated for the benefit of the reader.
  */
@@ -339,8 +350,8 @@ let para2 = makeParagraph("This is the second paragraph...")
 /*
   Uncomment the block below.
  */
-/*
-let wrapTagAroundText2 = (tagName, indent: string => string, text) => {
+
+let wrapTagAroundText2 = (tagName, indent, text) => {
   let indentSpaces = indent(" ")
 
   `<${tagName}>
@@ -358,8 +369,8 @@ let makeDiv3 = text => wrapTagAroundText2("div", Js.String.repeat(2), text)
 // <div>
 //   <p>Hello, world!</p>
 // </div>
-makeDiv3(makeParagraph("Hello, world!"))
-*/
+let div3=makeDiv3(makeParagraph("Hello, world!"))
+
 
 /*
   You can pass a function as an argument to another function.
@@ -370,7 +381,7 @@ makeDiv3(makeParagraph("Hello, world!"))
     ```
     string => string
     ```
-  
+
   This is a function which accepts a single `string` argument as its
   input and then produces an output `string` value.
 
@@ -386,12 +397,12 @@ makeDiv3(makeParagraph("Hello, world!"))
   interpolation, so the output value must also be a string value.
   This is how the compiler is able to infer the type even if you
   did not annotate it as: `string => string`
-  
+
   Go ahead, remove the type annotation from indent and hover on the
   binding `wrapTagAroundText2` to see the compiler inferred type. Does
   the second parameter have the type `string => string`?
 
-  The partially applied function `makeDiv*` has been defined with 
+  The partially applied function `makeDiv*` has been defined with
   identical second argument in three different ways:
 
     1. The named function `indent` is passed as an argument.
@@ -425,9 +436,9 @@ makeDiv3(makeParagraph("Hello, world!"))
     ```
     wrapTagAroundText("abc", "p") // <abc>p</abc>
     ```
-  
-  This code will compile. It may also slip through code review. 
-  And you  may only be notified when it causes a bug in production. 
+
+  This code will compile. It may also slip through code review.
+  And you  may only be notified when it causes a bug in production.
   Such an easy mistake to make!
 
   Also how often do you end up having to Google and lookup
@@ -443,7 +454,7 @@ makeDiv3(makeParagraph("Hello, world!"))
   parameters could be labelled. The parameters are not tied to
   a specific position anymore. They are identified by a label.
 
-  This also has the effect of improving the readability of the 
+  This also has the effect of improving the readability of the
   code. It becomes difficult to confuse between tag name and
   the inner text.
  */
@@ -451,7 +462,7 @@ makeDiv3(makeParagraph("Hello, world!"))
 /*
   Uncomment the block below.
  */
-/*
+
 let betterWrapTagAroundText = (~tag, ~indent, ~text) => {
   let indentSpaces = indent(" ")
 
@@ -463,18 +474,19 @@ ${indentSpaces}${text}
 // <div>
 //   <p>Hello, world!</p>
 // </div>
-betterWrapTagAroundText(
+
+let better=betterWrapTagAroundText(
   ~tag="div",
   ~indent=Js.String.repeat(2),
   ~text=makeParagraph("Hello, world!"),
 )
-*/
+
 
 /*
   The bindings you declare refer to **immutable** values. Immutability
   is the default setting in this language. You can attach new values
   to an existing binding through shadow binding.
-  
+
   But that is not very useful in situations where you need to change an
   immutable value dynamically based on external configuration. For example
   the String `repeat` function you used earlier, takes a string argument
@@ -499,7 +511,7 @@ betterWrapTagAroundText(
     1. ~count - number of times to be repeated
     2. ~char - a `char` (primitive) value.
 
-  The `char` type values are enclosed in single quotes. 
+  The `char` type values are enclosed in single quotes.
   The `string` type values are enclosed in double quotes.
 
   This function has the type signature:
@@ -520,7 +532,7 @@ betterWrapTagAroundText(
 /*
   Uncomment the block below.
  */
-/*
+
 let myCharRepeat = (~count, ~char) => {
   // Memoize the conversion of `char` value to a `string` value once
   // here. We do not want to keep invoking this function again and
@@ -543,12 +555,12 @@ let myCharRepeat = (~count, ~char) => {
 }
 
 // call site
-myCharRepeat(~char='@', ~count=6) // @@@@@@
-*/
+let _=myCharRepeat(~char='@', ~count=6) // @@@@@@
+
 /*
   If you are not used to writing recursive functions it is going to take
   a while before you wrap your head around it.
-  
+
   Let us follow what happens when you call this:
 
     `myCharRepeat(~count=3, ~char='@')`
@@ -567,9 +579,9 @@ myCharRepeat(~char='@', ~count=6) // @@@@@@
 
   And finally we hit the terminal condition for ending recursion with
   the call to:
-    
+
     aux("@@@", 1) // returns "@@@" to caller
-  
+
   This may be a bit too much at first if you are not comfortable with
   function recursion. The best way to understand is to pick up a pen
   and some paper and try tracing a few different calls yourself.
@@ -588,7 +600,7 @@ myCharRepeat(~char='@', ~count=6) // @@@@@@
   1. myCharRepeat(~count=3, ~char='@', ~acc="")
   2. myCharRepeat(~count=3, ~char='@)
 
-  The recursive `aux` (inlined) is a common technique used by functional 
+  The recursive `aux` (inlined) is a common technique used by functional
   programmers to hide the accumulator parameter from the end users of the
   function.
  */
@@ -615,8 +627,8 @@ myCharRepeat(~char='@', ~count=6) // @@@@@@
 
     ```
     // <body><div><p>Hello, world!</p></div></body>
-    wrapTagAroundText("body", 
-      wrapTagAroundText("div", 
+    wrapTagAroundText("body",
+      wrapTagAroundText("div",
         wrapTagAroundText("p", "Hello, world!")))
     ```
 
@@ -646,14 +658,14 @@ myCharRepeat(~char='@', ~count=6) // @@@@@@
 /*
   Uncomment the block below.
  */
-/*
+
 
 // original nested call site
 //
 // returns:
 //  <div><div><div><p>Hello, world!</p></div></div></div>
 //
-wrapTagAroundText(
+let _ = wrapTagAroundText(
   "div",
   wrapTagAroundText("div", wrapTagAroundText("div", wrapTagAroundText("p", "Hello, world!"))),
 )
@@ -664,7 +676,7 @@ let wrapTagAroundText3 = (text, tag) => `<${tag}>${text}</${tag}>`
 // returns:
 // <div><div><div><p>Hello, world!</p></div></div></div>
 //
-"Hello, world!"
+let _ ="Hello, world!"
 ->wrapTagAroundText3("p")
 ->wrapTagAroundText3("div")
 ->wrapTagAroundText3("div")
@@ -678,12 +690,12 @@ let wrapTagAroundText4 = (text, ~tag) => `<${tag}>${text}</${tag}>`
 // returns:
 // <div><div><div><p>Hello, world!</p></div></div></div>
 //
-"Hello, world!"
+let _ = "Hello, world!"
 ->wrapTagAroundText4(~tag="p")
 ->wrapTagAroundText4(~tag="div")
 ->wrapTagAroundText4(~tag="div")
 ->wrapTagAroundText4(~tag="div")
- */
+
 
 /*
   There are 3 different call-sites above:
@@ -709,9 +721,9 @@ let wrapTagAroundText4 = (text, ~tag) => `<${tag}>${text}</${tag}>`
     <div><div><div><p>Hello, world!</p></div></div></div>
     ```
 
-  This is known as function *composition*. 
-  
-  Your challenge is to design your computations in such a manner that the 
+  This is known as function *composition*.
+
+  Your challenge is to design your computations in such a manner that the
   incoming **immutable** data parameter is transformed through a sequence
   of function applications.
 
@@ -736,13 +748,13 @@ let wrapTagAroundText4 = (text, ~tag) => `<${tag}>${text}</${tag}>`
   types lining up like this in a pipeline:
 
     ```
-    string (input) 
-      -> string (1st transform) 
+    string (input)
+      -> string (1st transform)
       -> string (2nd transform)
       -> string (3rd transform)
       -> string (output)
     ```
-  
+
   You can compose your functions in a pipeline only when the types
   line up. If the type output by a function is `string`, you can compose
   it with a function which accepts `string` input. Now if this function
@@ -768,7 +780,7 @@ let wrapTagAroundText4 = (text, ~tag) => `<${tag}>${text}</${tag}>`
     let doE: (int, int) => int
     ```
 
-  It is possible to transform a `string` to an `int` by applying 
+  It is possible to transform a `string` to an `int` by applying
   the functions above in sequence. The types line up.
 
     ```
@@ -788,20 +800,20 @@ let wrapTagAroundText4 = (text, ~tag) => `<${tag}>${text}</${tag}>`
       ->doB      // string input, float output
       ->doE(2)   // int input <-- does not line up with incoming float ouput
     ```
-  
+
   The challenge for you is to begin thinking in **immutable** transformation
   of values by composing functions sequentially in a pipeline. It may take
   some adjusting to get used to when you are used to **mutating** values in
   other languages.
 
-  The benefits you will reap is in legibility of code for the reader, and 
-  preventing value transformation mistakes from hiding in your code. 
+  The benefits you will reap is in legibility of code for the reader, and
+  preventing value transformation mistakes from hiding in your code.
  */
 
 /*
   Uncomment the line below.
  */
-// let unitValue: unit = ()
+let unitValue = ()
 
 /*
   The `unit` type is a primitive. It has only a single value represented
@@ -818,22 +830,22 @@ let wrapTagAroundText4 = (text, ~tag) => `<${tag}>${text}</${tag}>`
     * fetching data from a remote service
     * logging to the console
     * etc.
-  
+
   These are all computations which introduces some state change in the
   application outside the realm of the function.
 
   You could read from a file, and the contents of the file may change
-  in subsequent read calls. 
-  
-  You could fetch data from a remote API, and it may return successfully 
-  most of the times, except when the remote service is unresponsive/down. 
-  It may also return different results each time it is called.  
+  in subsequent read calls.
+
+  You could fetch data from a remote API, and it may return successfully
+  most of the times, except when the remote service is unresponsive/down.
+  It may also return different results each time it is called.
  */
 
 /*
   Uncomment the line below.
  */
-// let timestamp = Js.Date.now()
+let timestamp = Js.Date.now()
 
 /*
   The JS Date API `now()` returns the current time as number of milliseconds
@@ -844,17 +856,17 @@ let wrapTagAroundText4 = (text, ~tag) => `<${tag}>${text}</${tag}>`
     ```
     unit => float
     ```
-  
+
   This function takes zero inputs, yet produces an output of type `float`.
-  
-  How does a function without any input produce an output? 
+
+  How does a function without any input produce an output?
   Side-effects.
  */
 
 /*
   Uncomment the line below.
  */
-// Js.log("takes one input, returns nothing!")
+ Js.log("takes one input, returns nothing!")
 
 /*
   The `Js.log` is the binding for JS API `console.log`.
@@ -864,18 +876,18 @@ let wrapTagAroundText4 = (text, ~tag) => `<${tag}>${text}</${tag}>`
     ```
     'a => unit
     ```
-  
+
   This function takes a single input, but returns `unit`.
 
   The type `'a` means that this is a function which can accept arguments
-  of any type. Don't worry about this detail. This will be covered 
+  of any type. Don't worry about this detail. This will be covered
   extensively later.
  */
 
 /*
   Uncomment the block below.
  */
-/*
+
 let addThreeNumbers = (x, y, z) => {
   Js.log("x : " ++ Belt.Int.toString(x))
   Js.log("y : " ++ Belt.Int.toString(y))
@@ -887,15 +899,15 @@ let addThreeNumbers = (x, y, z) => {
   result
 }
 
-addThreeNumbers(1, 2, 3)
-*/
+let _ =addThreeNumbers(1, 2, 3)
+
 
 /*
-  ReScript is not a **pure** functional language. You can use a side-effects 
+  ReScript is not a **pure** functional language. You can use a side-effects
   inside a function like logging to console for purposes of debugging.
 
   In a **pure** language if the type of the function is:
-  
+
     ```
     (int, int, int) => int
     ```
