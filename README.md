@@ -1,4 +1,4 @@
-> Learnings from the "Web Development 301 - Typed Functional Programming" course as part of the Coronasafe Engineering Fellowship 2020
+> Learnings from the "Web Development 301 - Typed Functional Programming" course as part of the Coronasafe Engineering Fellowship 2021
 
 [![License](https://img.shields.io/badge/license-CC%20BY--SA%204.0-orange)](./LICENSE.md)
 
